@@ -1,0 +1,39 @@
+div.content{
+    
+    font-size: 16px;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    width: 100%;
+}
+
+div.tieu_de{
+    text-align: center;
+    background-color: #388E3C;
+    color:white;
+    padding: 20px;
+}
+#CUA_SO_XU_LY{
+    height: 100px;
+}
+#btn_cap_nhat, #btn_nhom_tivi, #btn_quay_ve{
+    height: 60px;
+    background-color: chocolate;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-left: 50px;
+}
+img.image{
+    width: 150px;
+    height: 150px;
+}
+
+div.info{
+    text-align: left;
+}
+hr{
+    height: 2px;
+    color: #4a91d8;
+    background-color: #4a91d8;
+}
