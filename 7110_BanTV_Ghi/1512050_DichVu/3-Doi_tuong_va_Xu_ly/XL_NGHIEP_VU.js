@@ -18,10 +18,10 @@ class XL_NGHIEP_VU {
       var Tivi = Danh_sach_Tivi[i];
       var Ten = Tivi.getAttribute("Ten")
       var Ma= Tivi.getAttribute("Ma_so")
-     var Gia_nhap = Tivi.getAttribute("Don_gia_Nhap");
-     var Gia_ban = Tivi.getAttribute("Don_gia_Ban");
-     var SlTon = Tivi.getAttribute("So_luong_Ton");
-     var Doanh_thu = Tivi.getAttribute("Doanh_thu");
+     var Gia_nhap = parseInt(Tivi.getAttribute("Don_gia_Nhap"));
+     var Gia_ban = parseInt(Tivi.getAttribute("Don_gia_Ban"));
+     var SlTon = parseInt(Tivi.getAttribute("So_luong_Ton"));
+     var Doanh_thu = parseInt(Tivi.getAttribute("Doanh_thu"));
       var Trang_thai = Tivi.getAttribute("Trang_thai_Con_hang");
 
       var DS_TV = Data.getElementsByTagName("Danh_sach_Tivi")[0];
@@ -34,11 +34,19 @@ class XL_NGHIEP_VU {
       newTV.setAttribute("So_luong_Ton", SlTon);
       newTV.setAttribute("Doanh_thu", Doanh_thu);     
       newTV.setAttribute("Trang_thai", Trang_thai);
-      var NhomTV = Tivi.getElementsByTagName("Nhom_Tivi")[0]
-      newTV.appendChild(NhomTV);
 
-      DS_TV.appendChild(newTV)
-      
+      var NhomTV = Tivi.getElementsByTagName("Nhom_Tivi")[0]
+      var Ma_Nhom = NhomTV.getAttribute("Ma_so");
+      var Ten_Nhom = NhomTV.getAttribute("Ten")
+      var Sl_Ton_Nhom = parseInt(NhomTV.getAttribute("So_luong_Ton"))
+
+      var newNhomTV= Data.createElement("Nhom_Tivi");
+      newNhomTV.setAttribute("Ten", Ten_Nhom);
+      newNhomTV.setAttribute("Ma_so", Ma_Nhom);
+      newNhomTV.setAttribute("So_luong_Ton", Sl_Ton_Nhom);
+      newTV.appendChild(newNhomTV);
+
+      DS_TV.appendChild(newTV);      
     }
     return new XMLSerializer().serializeToString(Data);
   }

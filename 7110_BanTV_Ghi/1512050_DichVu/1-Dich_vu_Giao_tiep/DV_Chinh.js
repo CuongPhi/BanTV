@@ -14,7 +14,7 @@ var Dich_vu = NodeJs_Dich_vu.createServer((Yeu_cau, Dap_ung) => {
   var Chuoi_Nhan = "";
   var Dia_chi_Xu_ly = Yeu_cau.url.replace("/", "");
   var Tham_so = Xu_ly_Tham_so.parse(Dia_chi_Xu_ly.replace("?", ""));
-  var Ma_so_Xu_ly = Tham_so.Ma_so_Xu_ly;
+  var ReqCode = Tham_so.ReqCode;
   var Chuoi_Kq = "";
   contentType = "text/html";
  var IP = Yeu_cau.headers['x-forwarded-for'] || Yeu_cau.connection.remoteAddress; // IP của client
@@ -38,19 +38,19 @@ var Dich_vu = NodeJs_Dich_vu.createServer((Yeu_cau, Dap_ung) => {
     } else if (Yeu_cau.url == "/NVBan") {
       //tải trang nhân viên bán
       Chuoi_Kq = Nghiep_vu.Dap_Ung_Yeu_Cau("NVBan");
-    } else if (Ma_so_Xu_ly == "Doc_Du_lieu") {
+    } else if (ReqCode == "Lay_Du_lieu") {
       Chuoi_Kq = Nghiep_vu.Lay_Danh_sach_Tivi(Xml_Doc);
       contentType = "text/xml";
-    } else if (Ma_so_Xu_ly == "Doc_hinh") {
+    } else if (ReqCode == "Lay_anh") {
       Chuoi_Kq = Nghiep_vu.Doc_Hinh_Anh(Tham_so.Ma_so);
       contentType = "image/png";
-    } else if (Ma_so_Xu_ly == "Doc_Danh_sach_Ten_Tivi") {
+    } else if (ReqCode == "Doc_Danh_sach_Ten_Tivi") {
       Chuoi_Kq = Nghiep_vu.Lay_Danh_sach_Ten_Tivi(Xml_Doc);;
       contentType = "text/plain";
-    } else if (Ma_so_Xu_ly == "NV_Nhap_hang") {
+    } else if (ReqCode == "NV_Nhap") {
       Luu_tru.Them_Danh_sach_Nhap_hang(
-        Du_lieu_xml,
-        Data_XML,
+        Xml_Doc,
+        Xml_Dom,
         Tham_so.TenTV,
         Tham_so.Ngay,
         Tham_so.Don_gia,
@@ -59,9 +59,9 @@ var Dich_vu = NodeJs_Dich_vu.createServer((Yeu_cau, Dap_ung) => {
       );
       Chuoi_Kq = "Cập nhật thành công!";
       contentType = "text/plain";
-    } else if (Ma_so_Xu_ly == "Quan_ly_Nhap_hang") {
+    } else if (ReqCode == "QL_Nhap") {
       Luu_tru.Cap_nhat_Don_gia(
-        Du_lieu_xml,
+        Xml_Doc,
         Tham_so.Ten,
         Tham_so.Don_gia_Nhap,
         "Don_gia_Nhap"
@@ -74,11 +74,11 @@ var Dich_vu = NodeJs_Dich_vu.createServer((Yeu_cau, Dap_ung) => {
         Tham_so.Don_gia_Nhap +
         " thành công!";
       contentType = "text/plain";
-    } else if (Ma_so_Xu_ly == "Quan_ly_Ban_hang") {
+    } else if (ReqCode == "QL_Ban") {
       Chuoi_Kq = "Not found!";
 
       Nghiep_vu.Cap_nhat_Don_gia(
-        Du_lieu_xml,
+        Xml_Doc,
         Tham_so.TenTV,
         Tham_so.Don_gia_Ban,
         "Don_gia_Ban"

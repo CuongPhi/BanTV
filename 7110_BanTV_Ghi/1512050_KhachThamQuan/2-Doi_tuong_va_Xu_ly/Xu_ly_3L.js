@@ -3,7 +3,7 @@ function Tao_Th_Danh_sach_Tivi(Danh_sach_Tivi){
     // Ten, don gia ban, trang thai con hang
 
     var Dia_chi_Dich_vu = "http://localhost:8888/";
-    var Tham_so="Ma_so_Xu_ly=Doc_hinh";
+    var Tham_so="ReqCode=Lay_anh";
     var Dia_chi_Xu_ly=`${Dia_chi_Dich_vu}?${Tham_so}` //định dạng lấy ảnh
     
     var Th_Danh_sach = document.createElement("div");
@@ -18,7 +18,7 @@ function Tao_Th_Danh_sach_Tivi(Danh_sach_Tivi){
         var Ma_so = Tivi.getAttribute("Ma_so");
 
         var Th_Hinh = document.createElement("img");
-        Th_Hinh.src = `${Dia_chi_Xu_ly}&Ma_so=${Ma_so}.png`; //http://localhost:8888/Media/TIVI_1.png
+        Th_Hinh.src = `${Dia_chi_Xu_ly}&Ma_so=${Ma_so}.png`; // http://localhost:8888/Media/TIVI_1.png
         Th_Hinh.className = "image";
 
         var Th_Thong_tin = document.createElement("div");
@@ -64,7 +64,7 @@ function Tao_Th_Danh_sach_Tivi(Danh_sach_Tivi){
 function Doc_Danh_sach_Tivi(){
     var Xu_ly_HTTP = new XMLHttpRequest();
     var Dia_chi_Dich_vu = "http://localhost:8888/";
-    var Tham_so="Ma_so_Xu_ly=Doc_Du_lieu"
+    var Tham_so="ReqCode=Lay_Du_lieu"
     var Dia_chi_Xu_ly=`${Dia_chi_Dich_vu}?${Tham_so}`
     Xu_ly_HTTP.open("GET", Dia_chi_Xu_ly, false);
     Xu_ly_HTTP.send("");

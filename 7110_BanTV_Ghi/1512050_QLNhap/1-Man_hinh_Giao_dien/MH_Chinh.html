@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <title>Ứng dụng KHÁCH THAM QUAN</title>
+    <title>QUẢN LÝ NHẬP</title>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -12,16 +12,28 @@
 </head>
 
 <body>
+    <div id="wrapper" >
     <div class="container-fluid content">
-        <div id = "CUA_SO_TIEU_DE" class="tieu_de">
-            <h1 id="quan_ly_nhap_hang">QUẢN LÝ NHẬP HÀNG</h1>
+            <div id="CUA_SO_PET" style="background-color:aliceblue;margin:10px">
+                    <div class="btn PET" style="margin-left:0px">
+                        <div class="btn TOM_TAT" id= "quan_ly_nhap_hang" style="color:blue;">
+                                XEM CỬA HÀNG
+                        </div>
+                    </div>              
+                    <div id="Th_Nha_hang" class="btn btn-outline-primary" style="background-color:white;color:blue">
+                        BÁN TI VI - QUẢN LÝ NHẬP
+                    </div>
+                </div>
         </div>
-        <div id="CUA_SO_XU_LY" class="row">
+            
+        <div id = "CUA_SO_XU_LY" class="tieu_de">
             
         </div>
 
+
         <div id="CUA_SO_KET_QUA">
 
+        </div>
         </div>
     </div>
 </body>
@@ -39,11 +51,13 @@
 document.body.onload = () =>{
     var Danh_sach_Tivi = Doc_Danh_sach_Tivi();
     var Th_Danh_sach_Tivi = Tao_Th_Danh_sach_Tivi(Danh_sach_Tivi)
-    var Nut_cap_nhat = Tao_nut_cap_nhat()
-    var Nut_nhom_tivi = Tao_nut_nhom_tivi(Danh_sach_Tivi)
+    var Nut_cap_nhat = Tao_nut_Sua()
+    var Nut_nhom_tivi = Tao_nut_Nhom_TV(Danh_sach_Tivi)
+    var Nut_xem = Tao_nut_Xem();
 
-    CUA_SO_XU_LY.appendChild(Nut_cap_nhat)
+    CUA_SO_XU_LY.appendChild(Nut_xem)
     CUA_SO_XU_LY.appendChild(Nut_nhom_tivi)
+    CUA_SO_XU_LY.appendChild(Nut_cap_nhat)
     CUA_SO_KET_QUA.appendChild(Th_Danh_sach_Tivi);
 }
 

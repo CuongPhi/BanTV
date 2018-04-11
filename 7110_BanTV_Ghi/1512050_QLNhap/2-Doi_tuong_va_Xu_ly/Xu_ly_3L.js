@@ -2,7 +2,7 @@
 function Tao_Th_Danh_sach_Tivi(Danh_sach_Tivi){
     // Ten, don gia ban, trang thai con hang
     var Dia_chi_Dich_vu = "http://localhost:8888/";
-    var Tham_so="Ma_so_Xu_ly=Doc_hinh";
+    var Tham_so="ReqCode=Lay_anh";
     var Dia_chi_Xu_ly=`${Dia_chi_Dich_vu}?${Tham_so}`
     
     var Th_Danh_sach = document.createElement("div");
@@ -41,14 +41,14 @@ function Tao_Th_Danh_sach_Tivi(Danh_sach_Tivi){
     }
     return Th_Danh_sach;
 }
-
+var Da_Co_Nut_Quay_Ve = false;
 function Nhom_Tivi(Danh_sach_Tivi){
+
+    document.getElementById("quan_ly_nhap_hang").innerHTML = "QUẢN LÝ NHẬP HÀNG"
     var Dia_chi_Dich_vu = "http://localhost:8888/";
-    var Tham_so="Ma_so_Xu_ly=Doc_hinh";
+    var Tham_so="ReqCode=Lay_anh";
     var Dia_chi_Xu_ly=`${Dia_chi_Dich_vu}?${Tham_so}`
 
-    Xoa_Tat_ca_childNodes_Element(CUA_SO_KET_QUA)
-    CUA_SO_XU_LY.appendChild(Tao_nut_quay_ve())
     var DS_Ten_nhom = []
     var Nhom_tivi = document.createElement("div")
     var danh_sach = Danh_sach_Tivi.getElementsByTagName("Tivi")
@@ -77,7 +77,7 @@ function Nhom_Tivi(Danh_sach_Tivi){
                 if(nhom[0].getAttribute("Ten")==DS_Ten_nhom[i]){
                     var Ten = Tivi.getAttribute("Ten"); 
                     var So_luong_ton = Tivi.getAttribute("So_luong_Ton");
-                    if(So_luong_ton==null) So_luong_ton=0
+                    if(So_luong_ton==null || isNaN(So_luong_ton)) So_luong_ton=0
                     var Ma_so = Tivi.getAttribute("Ma_so");
 
                     var Th_Hinh = document.createElement("img");
@@ -109,6 +109,7 @@ function Nhom_Tivi(Danh_sach_Tivi){
             Nhom_tivi.appendChild(Duong_thang)
     }
 
+    Xoa_Tat_ca_childNodes_Element(CUA_SO_KET_QUA)
     CUA_SO_KET_QUA.appendChild(Nhom_tivi)
 }
 
@@ -122,7 +123,7 @@ function Kiem_tra_thuoc_mang(arr, item){
 
 // Tạo giao diện cập nhật
 function Xu_ly_cap_nhat(){
-    document.getElementById("quan_ly_nhap_hang").innerHTML = "QUẢN LÝ NHẬP HÀNG - CẬP NHẬT ĐƠN GIÁ"
+    document.getElementById("quan_ly_nhap_hang").innerHTML = "QUẢN LÝ NHẬP - CẬP NHẬT ĐƠN GIÁ"
     var Cap_nhat = document.createElement("div")
 
     //------------- Các tiêu đề: tên, đơn giá hiện tại và đơn giá mới
@@ -131,7 +132,7 @@ function Xu_ly_cap_nhat(){
 
     var Ten_san_pham = document.createElement("p")
     var Don_gia_nhap_moi = document.createElement("p")
-
+    Don_gia_nhap_moi.id="ThongBaoCapNhat"
     Ten_san_pham.innerHTML = "Tên sản phẩm"
     Don_gia_nhap_moi.innerHTML = "Cập nhật đơn giá mới"
 
@@ -188,78 +189,63 @@ function Xu_ly_cap_nhat(){
     Cap_nhat.appendChild(Input_Ten_va_Don_gia_nhap)
     Cap_nhat.appendChild(Nut_Quay_ve)
 
-    Xoa_Tat_ca_childNodes_Element(CUA_SO_XU_LY)
     Xoa_Tat_ca_childNodes_Element(CUA_SO_KET_QUA)
     CUA_SO_KET_QUA.appendChild(Cap_nhat)
-    //return Cap_nhat
 }
 
 // Tạo sự kiện cập nhật
 function Cap_nhat_gia(){
-    Xoa_Tat_ca_childNodes_Element(CUA_SO_XU_LY)
-    var Thong_bao = document.createElement("p")
-    Thong_bao.style.cssText = 'font-size: 25px; margin-left: 500px; color: red; font-weight: bold'
-
+    var Thong_bao= ""   
     var Ten_tivi = document.getElementById("DS_Ten").value
     var Gia_moi = document.getElementById("Gia_moi").value
     if(Gia_moi == "")
-        Thong_bao.innerHTML = "Hãy nhập thông tin đơn giá mới"
+        Thong_bao = "Hãy nhập thông tin đơn giá mới"
     else if(isNaN(parseFloat(Gia_moi)) == true)
-        Thong_bao.innerHTML = "Số đã nhập không hợp lệ"
-    else {
-        Thong_bao.style.cssText = 'font-size: 25px; margin-left: 550px; color: green; font-weight: bold'
-        Thong_bao.innerHTML = "Cập nhật thành công"
-
-        // Gửi dữ liệu lên server:
+        Thong_bao = "Số đã nhập không hợp lệ"
+    else {      
+        Thong_bao = "Cập nhật thành công"
+        // Gửi dữ liệu cập nhật lên server:
         var Xu_ly_HTTP = new XMLHttpRequest();
-        var Dia_chi_Dich_vu = "http://localhost:8888/"; // truyền tham số theo định dạng sau để thực hiện chức năng nhập hàng
-        var Tham_so = `Ma_so_Xu_ly=Quan_ly_Nhap_hang&Kieu_Xu_ly=Sua&Ten=${Ten_tivi}&Don_gia_Nhap=${Gia_moi}`;
+        var Dia_chi_Dich_vu = "http://localhost:8888/"; // truyền tham số theo định dạng sau để thực hiện chức năng nhập hàng:
+        var Tham_so = `ReqCode=QL_Nhap&Ten=${Ten_tivi}&Don_gia_Nhap=${Gia_moi}`;
         var Dia_chi_Xu_ly = `${Dia_chi_Dich_vu}?${Tham_so}`;
         Xu_ly_HTTP.open("GET", Dia_chi_Xu_ly, false);
         Xu_ly_HTTP.send("");
-        // console.log(Xu_ly_HTTP.responseText);
     }
-    CUA_SO_XU_LY.appendChild(Thong_bao)
+    document.getElementById("ThongBaoCapNhat").innerHTML=Thong_bao
 }
 
 // Tạo sự kiên quay về
 function Quay_ve(){
     document.getElementById("quan_ly_nhap_hang").innerHTML = "QUẢN LÝ NHẬP HÀNG"
-    Xoa_Tat_ca_childNodes_Element(CUA_SO_XU_LY)
-    Xoa_Tat_ca_childNodes_Element(CUA_SO_KET_QUA)
-
-    var Danh_sach_Tivi = Doc_Danh_sach_Tivi();
-    var Th_Danh_sach_Tivi = Tao_Th_Danh_sach_Tivi(Danh_sach_Tivi)
-    var Nut_cap_nhat = Tao_nut_cap_nhat()
-    var Nut_nhom_tivi = Tao_nut_nhom_tivi(Danh_sach_Tivi)
-
-    CUA_SO_XU_LY.appendChild(Nut_cap_nhat)
-    CUA_SO_XU_LY.appendChild(Nut_nhom_tivi)
-    CUA_SO_KET_QUA.appendChild(Th_Danh_sach_Tivi)
+    Xoa_Tat_ca_childNodes_Element(CUA_SO_KET_QUA)    
+     var Danh_sach_Tivi = Doc_Danh_sach_Tivi();
+     var Th_Danh_sach_Tivi = Tao_Th_Danh_sach_Tivi(Danh_sach_Tivi);  
+     CUA_SO_KET_QUA.appendChild(Th_Danh_sach_Tivi)
 }
-function Tao_nut_quay_ve(){
+function Tao_nut_Xem(){
     var Nut_quay_ve = document.createElement("button")
     Nut_quay_ve.className = 'btn btn-success'
-    Nut_quay_ve.innerHTML = "XEM TIVI"
+    Nut_quay_ve.innerHTML = "DANH SÁCH TV"
     Nut_quay_ve.id = "btn_quay_ve"
     Nut_quay_ve.onclick = function() {Quay_ve()}
     return Nut_quay_ve
 }
 
 // Tạo các nút chức năng
-function Tao_nut_cap_nhat(){
+function Tao_nut_Sua(){
     var Nut_cap_nhat = document.createElement("button")
     Nut_cap_nhat.className = 'btn btn-success'
-    Nut_cap_nhat.innerHTML = "CẬP NHẬT ĐƠN GIÁ NHẬP"
+    Nut_cap_nhat.innerHTML = "SỬA GIÁ NHẬP"
     Nut_cap_nhat.id = "btn_cap_nhat"
     Nut_cap_nhat.onclick = function() {Xu_ly_cap_nhat()}
     return Nut_cap_nhat
 }
 
-function Tao_nut_nhom_tivi(Danh_sach_Tivi){ 
+function Tao_nut_Nhom_TV(Danh_sach_Tivi){ 
     var Nut_nhom_tivi = document.createElement("button")
     Nut_nhom_tivi.className = 'btn btn-success'
-    Nut_nhom_tivi.innerHTML = "NHÓM TIVI"
+    Nut_nhom_tivi.innerHTML = "XEM NHÓM TV"
     Nut_nhom_tivi.id = "btn_nhom_tivi"
     Nut_nhom_tivi.onclick = function() {Nhom_Tivi(Danh_sach_Tivi)}
     return Nut_nhom_tivi
@@ -276,7 +262,7 @@ function Xoa_Tat_ca_childNodes_Element(node_element){
 function Doc_Danh_sach_Tivi(){
     var Xu_ly_HTTP = new XMLHttpRequest();
     var Dia_chi_Dich_vu = "http://localhost:8888/";
-    var Tham_so="Ma_so_Xu_ly=Doc_Du_lieu"
+    var Tham_so="ReqCode=Lay_Du_lieu"
     var Dia_chi_Xu_ly=`${Dia_chi_Dich_vu}?${Tham_so}`
     Xu_ly_HTTP.open("GET", Dia_chi_Xu_ly, false);
     Xu_ly_HTTP.send("");
