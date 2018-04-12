@@ -1,10 +1,12 @@
 console.log("Xin chờ ...");
 var NodeJs_Dich_vu = require("http");
+var DOMParser = require("xmldom").DOMParser;
+var XMLSerializer = require("xmldom").XMLSerializer;
 var Luu_tru = require("../3-Doi_tuong_va_Xu_ly/XL_LUU_TRU.js");
 var Nghiep_vu = require("../3-Doi_tuong_va_Xu_ly/XL_NGHIEP_VU.js");
 var Xu_ly_Tham_so = require("querystring");
 var fs = require("fs");
-var sttCode=200
+var sttCode = 200;
 
 var Xml_Doc = Nghiep_vu.Lay_Du_lieu_XML_Doc();
 var Xml_Dom = Nghiep_vu.Lay_Du_lieu_XML_DOM();
@@ -17,35 +19,38 @@ var Dich_vu = NodeJs_Dich_vu.createServer((Yeu_cau, Dap_ung) => {
   var ReqCode = Tham_so.ReqCode;
   var Chuoi_Kq = "";
   contentType = "text/html";
- var IP = Yeu_cau.headers['x-forwarded-for'] || Yeu_cau.connection.remoteAddress; // IP của client
+  var IP =
+    Yeu_cau.headers["x-forwarded-for"] || Yeu_cau.connection.remoteAddress; // IP của client
   Yeu_cau.on("data", chunk => {
     Chuoi_Nhan += chunk;
   });
   Yeu_cau.on("end", () => {
     //nếu là yêu cầu tải trang ứng dụng
-    if (Yeu_cau.url == "/" || Yeu_cau.url == "/KhachHang") {
+    if (Yeu_cau.url == "/" || Yeu_cau.url == "/KhachHang") { //nếu url là localhost:8888/ thì trả lại trang của khách hàng
       //tải trang khách tham quan
-      Chuoi_Kq = Nghiep_vu.Dap_Ung_Yeu_Cau("Khach_Tham_Quan");
-    } else if (Yeu_cau.url == "/QLNhap") {
+      Chuoi_Kq = Nghiep_vu.Dap_Ung_Yeu_Cau("Khach_Tham_Quan"); 
+    } else if (Yeu_cau.url == "/QLNhap") {//nếu url là localhost:8888/QLNhap thì trả lại trang của quản lí nhập
       //tải trang quản lí nhập
       Chuoi_Kq = Nghiep_vu.Dap_Ung_Yeu_Cau("QLNhap");
-    } else if (Yeu_cau.url == "/QLBan") {
-      //tải trang quản lí bán
-      Chuoi_Kq = Nghiep_vu.Dap_Ung_Yeu_Cau("QLBan");
-    } else if (Yeu_cau.url == "/NVNhap") {
+    } else if (Yeu_cau.url == "/QLBan") {//nếu url là localhost:8888/QLBan thì trả lại trang của quản lí bán
+      Chuoi_Kq = Nghiep_vu.Dap_Ung_Yeu_Cau("QLBan"); 
+    } else if (Yeu_cau.url == "/NVNhap") {  //nếu url là localhost:8888/NVNhap thì trả lại trang của nhân viên nhập
       //tải trang nhân viên nhập
-      Chuoi_Kq = Nghiep_vu.Dap_Ung_Yeu_Cau("NVNhap");
-    } else if (Yeu_cau.url == "/NVBan") {
+      Chuoi_Kq = Nghiep_vu.Dap_Ung_Yeu_Cau("NVNhap"); 
+    } else if (Yeu_cau.url == "/NVBan") {//nếu url là localhost:8888/NVBan thì trả lại trang của nhân viên bán
       //tải trang nhân viên bán
       Chuoi_Kq = Nghiep_vu.Dap_Ung_Yeu_Cau("NVBan");
-    } else if (ReqCode == "Lay_Du_lieu") {
+    } else if (ReqCode == "Lay_Day_Du_Du_Lieu") { // lấy toàn bộ dữ liệu ->> nặng, chậm
+      Chuoi_Kq = new XMLSerializer().serializeToString(Xml_Doc);
+      contentType = "text/xml";
+    } else if (ReqCode == "Lay_Du_lieu") {    // chỉ lấy các thẻ Tivi và thẻ Nhom_Tivi của nó
       Chuoi_Kq = Nghiep_vu.Lay_Danh_sach_Tivi(Xml_Doc);
       contentType = "text/xml";
-    } else if (ReqCode == "Lay_anh") {
+    } else if (ReqCode == "Lay_anh") {    // lấy hỉnh ảnh theo tên hình
       Chuoi_Kq = Nghiep_vu.Doc_Hinh_Anh(Tham_so.Ma_so);
       contentType = "image/png";
-    } else if (ReqCode == "Doc_Danh_sach_Ten_Tivi") {
-      Chuoi_Kq = Nghiep_vu.Lay_Danh_sach_Ten_Tivi(Xml_Doc);;
+    } else if (ReqCode == "Doc_Danh_sach_Ten_Tivi") { // chỉ lấy ra danh sách tên các tivi
+      Chuoi_Kq = Nghiep_vu.Lay_Danh_sach_Ten_Tivi(Xml_Doc);
       contentType = "text/plain";
     } else if (ReqCode == "NV_Nhap") {
       Luu_tru.Them_Danh_sach_Nhap_hang(
@@ -92,10 +97,9 @@ var Dich_vu = NodeJs_Dich_vu.createServer((Yeu_cau, Dap_ung) => {
 
       contentType = "text/plain";
     } else {
-        sttCode= 404
-        Chuoi_Kq= "<h1>Not found!</h1>"
-        contentType = "text/html";
-
+      sttCode = 404;
+      Chuoi_Kq = "<h1>Not found!</h1>";
+      contentType = "text/html";
     }
 
     Dap_ung.writeHead(sttCode, {
