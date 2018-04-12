@@ -44,7 +44,7 @@ function Tao_Th_Danh_sach_Tivi(Danh_sach_Tivi){
 var Da_Co_Nut_Quay_Ve = false;
 function Nhom_Tivi(Danh_sach_Tivi){
 
-    document.getElementById("quan_ly_nhap_hang").innerHTML = "QUẢN LÝ NHẬP HÀNG"
+    document.getElementById("quan_ly_nhap_hang").innerHTML = "XEM NHÓM HÀNG"
     var Dia_chi_Dich_vu = "http://localhost:8888/";
     var Tham_so="ReqCode=Lay_anh";
     var Dia_chi_Xu_ly=`${Dia_chi_Dich_vu}?${Tham_so}`
@@ -123,7 +123,7 @@ function Kiem_tra_thuoc_mang(arr, item){
 
 // Tạo giao diện cập nhật
 function Xu_ly_cap_nhat(){
-    document.getElementById("quan_ly_nhap_hang").innerHTML = "QUẢN LÝ NHẬP - CẬP NHẬT ĐƠN GIÁ"
+    document.getElementById("quan_ly_nhap_hang").innerHTML = "CẬP NHẬT ĐƠN GIÁ"
     var Cap_nhat = document.createElement("div")
 
     //------------- Các tiêu đề: tên, đơn giá hiện tại và đơn giá mới
@@ -172,13 +172,6 @@ function Xu_ly_cap_nhat(){
     Nut_cap_nhap.style.cssText = 'margin-left: 40px; font-size: 25px; font-weight: bold'
     Nut_cap_nhap.onclick = function() {Cap_nhat_gia()};
 
-    //-------- Nút quay về Quản lý nhập hàng
-    Nut_Quay_ve = document.createElement("button")
-    Nut_Quay_ve.innerHTML = "Quay về"
-    Nut_Quay_ve.className = 'btn btn-success'
-    Nut_Quay_ve.onclick = function() {Quay_ve()};
-    Nut_Quay_ve.style.cssText = 'font-size: 25px; font-weight: bold; margin-left: 45%; margin-top: 100px'
-
     Ten_va_Don_gia_nhap.appendChild(Ten_san_pham)
     Ten_va_Don_gia_nhap.appendChild(Don_gia_nhap_moi)
 
@@ -187,7 +180,6 @@ function Xu_ly_cap_nhat(){
 
     Cap_nhat.appendChild(Ten_va_Don_gia_nhap)
     Cap_nhat.appendChild(Input_Ten_va_Don_gia_nhap)
-    Cap_nhat.appendChild(Nut_Quay_ve)
 
     Xoa_Tat_ca_childNodes_Element(CUA_SO_KET_QUA)
     CUA_SO_KET_QUA.appendChild(Cap_nhat)
@@ -216,8 +208,8 @@ function Cap_nhat_gia(){
 }
 
 // Tạo sự kiên quay về
-function Quay_ve(){
-    document.getElementById("quan_ly_nhap_hang").innerHTML = "QUẢN LÝ NHẬP HÀNG"
+function Xem_Danh_sach(){
+    document.getElementById("quan_ly_nhap_hang").innerHTML = "XEM CỬA HÀNG"
     Xoa_Tat_ca_childNodes_Element(CUA_SO_KET_QUA)    
      var Danh_sach_Tivi = Doc_Danh_sach_Tivi();
      var Th_Danh_sach_Tivi = Tao_Th_Danh_sach_Tivi(Danh_sach_Tivi);  
@@ -225,17 +217,15 @@ function Quay_ve(){
 }
 function Tao_nut_Xem(){
     var Nut_quay_ve = document.createElement("button")
-    Nut_quay_ve.className = 'btn btn-success'
     Nut_quay_ve.innerHTML = "DANH SÁCH TV"
     Nut_quay_ve.id = "btn_quay_ve"
-    Nut_quay_ve.onclick = function() {Quay_ve()}
+    Nut_quay_ve.onclick = function() {Xem_Danh_sach()}
     return Nut_quay_ve
 }
 
 // Tạo các nút chức năng
 function Tao_nut_Sua(){
     var Nut_cap_nhat = document.createElement("button")
-    Nut_cap_nhat.className = 'btn btn-success'
     Nut_cap_nhat.innerHTML = "SỬA GIÁ NHẬP"
     Nut_cap_nhat.id = "btn_cap_nhat"
     Nut_cap_nhat.onclick = function() {Xu_ly_cap_nhat()}
@@ -244,7 +234,6 @@ function Tao_nut_Sua(){
 
 function Tao_nut_Nhom_TV(Danh_sach_Tivi){ 
     var Nut_nhom_tivi = document.createElement("button")
-    Nut_nhom_tivi.className = 'btn btn-success'
     Nut_nhom_tivi.innerHTML = "XEM NHÓM TV"
     Nut_nhom_tivi.id = "btn_nhom_tivi"
     Nut_nhom_tivi.onclick = function() {Nhom_Tivi(Danh_sach_Tivi)}

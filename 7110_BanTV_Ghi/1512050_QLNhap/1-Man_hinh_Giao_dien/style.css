@@ -11,7 +11,7 @@ div.wrapper{
 }
 div.tieu_de{
     text-align: center;
-    background-color: #4a91d8;;
+    background-color: #111;;
     color:white;
 }
 #quan_ly_nhap_hang{
@@ -29,12 +29,12 @@ div.tieu_de{
 }
 #btn_cap_nhat, #btn_nhom_tivi, #btn_quay_ve{
     height: 50px;
-    background-color: chocolate;
+    background-color: #ee7915;
     font-weight: bold;
     margin-top: 0px;
-    margin-left: 15px;
+    margin-left: 0px;
     padding-top: 0px;
-    border: black
+    border: #111
 }
 img.image{
     width: 150px;

@@ -10,7 +10,7 @@ class XL_NGHIEP_VU {
   Lay_Danh_sach_Tivi(Du_lieu) {
     var Chuoi_XML="<Du_lieu><Danh_sach_Tivi></Danh_sach_Tivi></Du_lieu>";
     var Data =   new DOMParser().parseFromString(Chuoi_XML, "text/xml")
-    console.log("---------------------------------")
+    console.log("---------------------Lay DS TV------------")
     var Danh_sach_TV = Du_lieu.getElementsByTagName("Danh_sach_Tivi")[0];
     var Danh_sach_Tivi = Danh_sach_TV.getElementsByTagName("Tivi");
 
