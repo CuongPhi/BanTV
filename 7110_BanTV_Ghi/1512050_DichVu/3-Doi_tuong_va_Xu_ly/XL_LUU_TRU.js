@@ -3,6 +3,30 @@ var DOMParser = require("xmldom").DOMParser;
 var XMLSerializer = require("xmldom").XMLSerializer;
 
 class XL_LUU_TRU{
+    Cap_nhap_Du_lieu_Theo_Phieu_ban(Du_lieu, Ten_Tivi_Arg,Ngay,Don_gia,So_luong,Tien)
+    {
+      var Danh_sach_TV = Du_lieu.getElementsByTagName("Danh_sach_Tivi")[0];
+        var Danh_sach_Tivi = Danh_sach_TV.getElementsByTagName("Tivi");
+        for (var i = 0; i < Danh_sach_Tivi.length; i++) {
+          var Tivi = Danh_sach_Tivi[i];
+          var Ten_Tivi = Tivi.getAttribute("Ten");
+          if (Ten_Tivi == Ten_Tivi_Arg) {
+            if(parseInt(Tivi.getAttribute("So_luong")) < parseInt(So_luong))
+            {
+              alert("Số lượng không còn đủ để bán")
+            }
+            else{
+              Tivi.setAttribute("So_luong",(parseInt(Tivi.getAttribute("So_luong"))-parseInt(So_luong)).toLocaleString("vi"));
+              Tivi.setAttribute("Ngay",Ngay);
+              Tivi.setAttribute("Don_gia",Don_gia);
+              Tivi.setAttribute("Tien",Tien);
+              alert("Thanh Cong")
+              this.Luu_lai_Du_lieu(Du_lieu);
+            }
+            break;
+          }
+        }
+    }
     Them_Danh_sach_Nhap_hang(
         Du_lieu,
         Data_XML,
@@ -32,7 +56,6 @@ class XL_LUU_TRU{
           }
         }
       }
-    
       Cap_nhat_Don_gia(Du_lieu, Ten_Tivi_Arg, Don_gia_Moi_Arg, Thuoc_tinh) {
         var Danh_sach_TV = Du_lieu.getElementsByTagName("Danh_sach_Tivi")[0];
         var Danh_sach_Tivi = Danh_sach_TV.getElementsByTagName("Tivi");

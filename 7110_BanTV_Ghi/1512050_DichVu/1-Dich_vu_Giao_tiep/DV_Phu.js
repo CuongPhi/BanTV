@@ -12,52 +12,52 @@ app.createServer((Yeu_cau, Dap_ung) => {
     if(Yeu_cau.url == '/Load_scipt_KhachThamQ')
     {
         header_type = 'text/javascript';  
-        Duong_dan =  __dirname +  "/../../1512050_KhachThamQuan/2-Doi_tuong_va_Xu_ly/Xu_ly_3L.js"
+        Duong_dan =  __dirname +  "/../../1512191_KhachThamQuan/2-Doi_tuong_va_Xu_ly/Xu_ly_3L.js"
     }
     else if(Yeu_cau.url == '/Load_css_KhachThamQ')
     {
-        Duong_dan =  __dirname +  "/../../1512050_KhachThamQuan/1-Man_hinh_Giao_dien/style.css";
+        Duong_dan =  __dirname +  "/../../1512191_KhachThamQuan/1-Man_hinh_Giao_dien/style.css";
         header_type = 'text/css'
     }
     else if(Yeu_cau.url == '/Load_css_QLNhap')
     {
-        Duong_dan =  __dirname +  "/../../1512050_QLNhap/1-Man_hinh_Giao_dien/style.css";
+        Duong_dan =  __dirname +  "/../../1512351_QLNhap/1-Man_hinh_Giao_dien/style.css";
         header_type = 'text/css'
     }
    else  if(Yeu_cau.url == '/Load_scipt_QLNhap')
     {
         header_type = 'text/javascript';  
-        Duong_dan =  __dirname +  "/../../1512050_QLNhap/2-Doi_tuong_va_Xu_ly/Xu_ly_3L.js"
+        Duong_dan =  __dirname +  "/../../1512351_QLNhap/2-Doi_tuong_va_Xu_ly/Xu_ly_3L.js"
     }
     else if(Yeu_cau.url == '/Load_css_QLBan')
     {
-        Duong_dan =  __dirname +  "/../../1512050_QLBan/1-Man_hinh_Giao_dien/style.css";
+        Duong_dan =  __dirname +  "/../../1512191_QLBan/1-Man_hinh_Giao_dien/style.css";
         header_type = 'text/css'
     }
    else  if(Yeu_cau.url == '/Load_scipt_QLBan')
     {
         header_type = 'text/javascript';  
-        Duong_dan =  __dirname +  "/../../1512050_QLBan/2-Doi_tuong_va_Xu_ly/Xu_ly_3L.js"
+        Duong_dan =  __dirname +  "/../../1512191_QLBan/2-Doi_tuong_va_Xu_ly/Xu_ly_3L.js"
     }
     else if(Yeu_cau.url == '/Load_css_NVBan')
     {
-        Duong_dan =  __dirname +  "/../../1512050_NVBan/1-Man_hinh_Giao_dien/style.css";
+        Duong_dan =  __dirname +  "/../../1512117_NVBan/1-Man_hinh_Giao_dien/style.css";
         header_type = 'text/css'
     }
    else  if(Yeu_cau.url == '/Load_scipt_NVBan')
     {
         header_type = 'text/javascript';  
-        Duong_dan =  __dirname +  "/../../1512050_NVBan/2-Doi_tuong_va_Xu_ly/Xu_ly_3L.js"
+        Duong_dan =  __dirname +  "/../../1512117_NVBan/2-Doi_tuong_va_Xu_ly/Xu_ly_3L.js"
     }
     else if(Yeu_cau.url == '/Load_css_NVNhap')
     {
-        Duong_dan =  __dirname +  "/../../1512050_NVNhap/1-Man_hinh_Giao_dien/style.css";
+        Duong_dan =  __dirname +  "/../../1512117_NVNhap/1-Man_hinh_Giao_dien/style.css";
         header_type = 'text/css'
     }
    else  if(Yeu_cau.url == '/Load_scipt_NVNhap')
     {
         header_type = 'text/javascript';  
-        Duong_dan =  __dirname +  "/../../1512050_NVNhap/2-Doi_tuong_va_Xu_ly/Xu_ly_3L.js"
+        Duong_dan =  __dirname +  "/../../1512117_NVNhap/2-Doi_tuong_va_Xu_ly/Xu_ly_3L.js"
     }
     fs.readFile( Duong_dan, (err, data)=>{
         if (err) {

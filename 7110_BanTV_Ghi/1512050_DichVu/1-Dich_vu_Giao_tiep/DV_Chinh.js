@@ -1,4 +1,4 @@
-console.log("Xin chờ ...");
+﻿console.log("Xin chờ ...");
 var NodeJs_Dich_vu = require("http");
 var DOMParser = require("xmldom").DOMParser;
 var XMLSerializer = require("xmldom").XMLSerializer;
@@ -46,7 +46,13 @@ var Dich_vu = NodeJs_Dich_vu.createServer((Yeu_cau, Dap_ung) => {
     } else if (ReqCode == "Lay_Du_lieu") {    // chỉ lấy các thẻ Tivi và thẻ Nhom_Tivi của nó
       Chuoi_Kq = Nghiep_vu.Lay_Danh_sach_Tivi(Xml_Doc);
       contentType = "text/xml";
-    } else if (ReqCode == "Lay_anh") {    // lấy hỉnh ảnh theo tên hình
+    }    else if(ReqCode == "tinh_doanh_thu" )// cái reqcode zậy thôi hak,
+    {
+      Chuoi_Kq = Nghiep_vu.tinhSoLuongTonVaDoanhThu(Tham_so.Ngay_tra_cuu,Xml_Doc)
+      contentType = "text";
+      console.log(Chuoi_Kq);
+    }
+else if (ReqCode == "Lay_anh") {    // lấy hỉnh ảnh theo tên hình
       Chuoi_Kq = Nghiep_vu.Doc_Hinh_Anh(Tham_so.Ma_so);
       contentType = "image/png";
     } else if (ReqCode == "Doc_Danh_sach_Ten_Tivi") { // chỉ lấy ra danh sách tên các tivi
@@ -64,7 +70,20 @@ var Dich_vu = NodeJs_Dich_vu.createServer((Yeu_cau, Dap_ung) => {
       );
       Chuoi_Kq = "Cập nhật thành công!";
       contentType = "text/plain";
+    } else if (ReqCode == "NV_Ban") {
+      console.log("ok")
+      Luu_tru.Cap_nhap_Du_lieu_Theo_Phieu_ban(
+        Xml_Doc,
+        Tham_so.TenTV,
+        Tham_so.Ngay,
+        Tham_so.Don_gia,
+        Tham_so.So_luong,
+        Tham_so.Tien
+      );
+      Chuoi_Kq = "Cập nhật thành công!";
+      contentType = "text/plain";
     } else if (ReqCode == "QL_Nhap") {
+      console.log("ok QL Nhap")
       Luu_tru.Cap_nhat_Don_gia(
         Xml_Doc,
         Tham_so.Ten,

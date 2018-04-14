@@ -1,4 +1,4 @@
-var File = require("fs");
+﻿var File = require("fs");
 var DOMParser = require("xmldom").DOMParser;
 var XMLSerializer = require("xmldom").XMLSerializer;
 var Duong_dan_Du_lieu = "..//2-Du_lieu_Luu_tru//Du_lieu.xml";
@@ -58,7 +58,76 @@ class XL_NGHIEP_VU {
 Lay_Du_lieu_XML_DOM(){
      return new DOMParser().parseFromString(Chuoi_Du_lieu_XML, "text/xml");
 } 
-
+layTheBanHang(dulieu)
+{
+  var Ban_hang = dulieu.getElementsByTagName('Ban_hang');
+  return new XMLSerializer().serializeToString(Ban_hang);
+}
+phanLoai(dulieu)
+{
+  var DSKQ=[];
+  for(var  i = 0;  i < dulieu.getElementsByTagName('Tivi').length; i++)
+  {
+    var Mat_hang = dulieu.getElementsByTagName('Tivi')[i];
+    var nhomTivi = Mat_hang.getElementsByTagName('Nhom_Tivi')[0];
+    var ten = nhomTivi.getAttribute('Ten');
+    DSKQ.push(ten);
+  }
+  var obj = {};
+  var ret_arr = [];
+  for (var i = 0; i < DSKQ.length; i++) 
+  {
+      obj[DSKQ[i]] = true;
+  }
+    for (var key in obj) 
+    {
+        ret_arr.push(key);
+    }
+    return ret_arr;
+    
+}
+tinhSoLuongTonVaDoanhThu(Ngay_tra_cuu, dulieu)
+{
+  var mang = this.phanLoai(dulieu);
+  var doanh_Thu = 0;
+  for(var i = 0; i <mang.length; i++)
+  {
+    var count = 0;
+    var Doanh_thu =0;
+    for(var k=0; k <dulieu.getElementsByTagName('Tivi').length; k++)
+    {
+      var Mat_hang=dulieu.getElementsByTagName('Tivi')[k];
+      var DSBan_hang= Mat_hang.getElementsByTagName('Danh_sach_Ban_hang')[0];
+      var Ban_hang = DSBan_hang.getElementsByTagName('Ban_hang');
+      
+      var soLuongTon = Mat_hang.getAttribute('So_luong_Ton');
+      soLuongTon = parseInt(soLuongTon);
+      
+      var nhomTivi = Mat_hang.getElementsByTagName('Nhom_Tivi')[0];
+      var ten = nhomTivi.getAttribute('Ten');
+      
+      if(mang[i] == ten)
+      {
+        // for(var m = 0; m < Ban_hang.length; m ++)
+        // {
+        //   var Tien = Ban_hang[m].getAttribute('Tien');
+        //   var Ngay_ban = Ban_hang[m].getAttribute('Ngay');
+        //   Tien = parseFloat(Tien);
+        //   if(Ngay_tra_cuu == Ngay_ban)
+        //   {
+        //     Doanh_thu += Tien;
+        //   }
+        // }
+        if(Number.isNaN(soLuongTon))
+          count += 0;
+        else
+          count +=soLuongTon;
+       
+      }
+    }
+  }
+  return soLuongTon;
+}
 Doc_Hinh_Anh(path){
     var Duong_dan = "..//Media//" + path;
     return File.readFileSync(Duong_dan);
@@ -81,19 +150,19 @@ Doc_Hinh_Anh(path){
     if (Loai_Yeu_Cau == "Khach_Tham_Quan") {
       Duong_dan =
         __dirname +
-        "/../../1512050_KhachThamQuan/1-Man_hinh_Giao_dien/MH_Chinh.html";
+        "/../../1512191_KhachThamQuan/1-Man_hinh_Giao_dien/MH_Chinh.html";
     } else if (Loai_Yeu_Cau == "QLNhap") {
       Duong_dan =
-        __dirname + "/../../1512050_QLNhap/1-Man_hinh_Giao_dien/MH_Chinh.html";
+        __dirname + "/../../1512351_QLNhap/1-Man_hinh_Giao_dien/MH_Chinh.html";
     } else if (Loai_Yeu_Cau == "QLBan") {
       Duong_dan =
-        __dirname + "/../../1512050_QLBan/1-Man_hinh_Giao_dien/MH_Chinh.html";
+        __dirname + "/../../1512191_QLBan/1-Man_hinh_Giao_dien/MH_Chinh.html";
     } else if (Loai_Yeu_Cau == "NVNhap") {
       Duong_dan =
-        __dirname + "/../../1512050_NVNhap/1-Man_hinh_Giao_dien/MH_Chinh.html";
+        __dirname + "/../../1512117_NVNhap/1-Man_hinh_Giao_dien/MH_Chinh.html";
     } else if (Loai_Yeu_Cau == "NVBan") {
       Duong_dan =
-        __dirname + "/../../1512050_NVBan/1-Man_hinh_Giao_dien/MH_Chinh.html";
+        __dirname + "/../../1512117_NVBan/1-Man_hinh_Giao_dien/MH_Chinh.html";
     }
     return File.readFileSync(Duong_dan, "UTF-8");
   }

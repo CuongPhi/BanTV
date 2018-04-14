@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <title> NHÂN VIÊN BÁN</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+          integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="http://localhost:9999/Load_css_NVBan">
+
+</head>
+
+<body>
+    <div id="wrapper" >
+    <div class="container-fluid content">
+            <div id="CUA_SO_PET" style="background-color:aliceblue;margin:10px">
+                    <div class="btn PET" style="margin-left:0px">
+                        <div class="btn TOM_TAT" id= "quan_ly_nhap_hang" style="color:blue;">
+                                XEM CỬA HÀNG
+                        </div>
+                    </div>              
+                    <div id="Th_Nha_hang" class="btn btn-outline-primary" style="background-color:white;color:blue">
+                        BÁN TI VI - NHÂN VIÊN BÁN
+                    </div>
+                </div>
+        </div>
+            
+        <div id = "CUA_SO_XU_LY" class="tieu_de">
+        </div>
+
+
+        <div id="CUA_SO_KET_QUA">
+
+        </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+        integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+        <script src="http://localhost:9999/Load_scipt_NVBan"></script>
+
+<script> 
+/***************** Biến cố Khởi động **************/
+document.body.onload = () =>{
+    var Danh_sach_Tivi = Doc_Danh_sach_Tivi();
+    var Th_Danh_sach_Tivi = Tao_Th_Danh_sach_Tivi(Danh_sach_Tivi)
+    var Nut_xem = Tao_nut_Xem()
+    var Nut_phieu_ban= Tao_phieu_Ban_hang();
+
+    CUA_SO_XU_LY.appendChild(Nut_xem)
+    CUA_SO_XU_LY.appendChild(Nut_phieu_ban)
+    CUA_SO_KET_QUA.appendChild(Th_Danh_sach_Tivi);
+}
+</script>

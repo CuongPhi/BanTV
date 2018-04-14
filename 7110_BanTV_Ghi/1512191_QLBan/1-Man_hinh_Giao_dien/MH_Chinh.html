@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>CỬA HÀNG TIVI</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+          integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+           <meta http-equiv="pragma" content="no-cache" />
+    
+</head>
+<body style="font-family:Arial;width:100%;box-sizing:border-box;
+              margin:0px;;padding:0px;overflow-x:hidden" class="container-fluid">
+    
+        <div id="CUA_SO_PET" style="background-color:aliceblue;margin:10px">
+            <div class="btn PET" style="margin-left:0px">
+               
+                <div class="btn TOM_TAT" style="color:blue;">
+                        Mô hình - Công nghệ - Kỹ thuật
+                        <br />Đơn giản
+                </div>
+            </div> 
+            <div   class="btn btn-outline-primary" style="background-color:white;color:blue">
+                Ứng dụng Giảng dạy - Tháng 1/2018
+            </div>   
+            <div id="Th_Nha_hang" class="btn btn-outline-primary" style="background-color:white;color:blue">
+              Quản lí bán hàng
+            </div>
+        </div>
+        <div id="CUA_SO_CHUC_NANG"  style="background-color:gray;margin:10px" >
+            <div class="DANH_SACH_CHUC_NANG">
+                Xem mặt hàng<div id="Th_Chuc_nang_Tra_cuu" class="btn  CHUC_NANG">  </div>  
+                Xem doanh thu theo ngày<div id="Tra_cuu_ngay" class="btn CHUC_NANG"></div>
+                Nhóm Tivi<div id='Tra_theo_ngay_hien_hanh' class='btn CHUC_NANG'></div>  
+                        
+						
+                     
+                
+                 
+
+            </div>
+        </div>
+        <div id="CUA_SO_THONG_BAO" style="background-color:rgb(255, 255, 255);margin:10px"  >
+
+        </div>
+        <div id="CUA_SO_KET_QUA" style="background-color:white;margin:10px"  >
+            
+        </div>
+   
+
+
+
+</body>
+</html>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+        integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+        <script src="http://localhost:9999/Load_scipt_QLBan"></script>
+
+<script>
+//*************** Khởi động Đối tượng Thể hiện ************
+var CUA_SO_THONG_BAO=document.getElementById("CUA_SO_THONG_BAO")
+var CUA_SO_KET_QUA=document.getElementById("CUA_SO_KET_QUA")
+var Th_Nha_hang=document.getElementById("Th_Nha_hang") 
+var Th_Chuc_nang_Tra_cuu=document.getElementById("Th_Chuc_nang_Tra_cuu") 
+var Tra_cuu_ngay=document.getElementById('Tra_cuu_ngay')
+var Tra_cuu_theo_nhom = document.getElementById('Tra_theo_ngay_hien_hanh')
+//*************** Khởi động Dữ liệu  ************
+  var Danh_sach_Mat_hang =Doc_Du_lieu()
+  var Th_Danh_sach_Mat_hang=Tao_Th_Danh_sach_Mat_hang(Danh_sach_Mat_hang)
+  CUA_SO_KET_QUA.appendChild(Th_Danh_sach_Mat_hang)
+  var Danh_sach_Mat_hang_Xem = Danh_sach_Mat_hang
+//*************** Xuất thông tin   ************
+   CUA_SO_THONG_BAO.innerHTML=`<div class='alert alert-info'>
+                           Chúng tôi hiện có ${Danh_sach_Mat_hang.getElementsByTagName("Tivi").length} Mặt hàng </div>`
+                           
+
+ document.body.onload =() => {
+var Th_Chuoi_Tra_cuu=document.createElement("input")  
+Th_Chuc_nang_Tra_cuu.appendChild(Th_Chuoi_Tra_cuu)           
+Th_Chuoi_Tra_cuu.onkeydown=()=>{
+     if (event.keyCode==13){
+       // Nhập
+       var Chuoi_Tra_cuu=Th_Chuoi_Tra_cuu.value.trim()  
+       // Xử lý 
+       var Tra_cuu = Tra_cuu_Mat_hang(Chuoi_Tra_cuu)
+       var Danh_sach_Mat_hang_Xem=Hien_thi(Chuoi_Tra_cuu)   
+       // Xuất
+       CUA_SO_KET_QUA.innerHTML=""
+       CUA_SO_KET_QUA.appendChild(Danh_sach_Mat_hang_Xem)
+       CUA_SO_THONG_BAO.innerHTML=`<div class='alert alert-info'>
+                           Danh sách hiện có ${Tra_cuu.length} Mặt hàng </div>`
+                           
+     }
+  }
+ }
+ //*********************      Tính doanh thu của cả cửa hàng      ************************
+var tra_Doanh_Thu = document.createElement('input');
+Tra_cuu_ngay.appendChild(tra_Doanh_Thu);
+tra_Doanh_Thu.onkeydown=()=>{
+    if (event.keyCode==13){
+       // Nhập
+       var Tra_cuu=tra_Doanh_Thu.value.trim() ;
+       //Xử lí
+       var doanhThu=tinhDoanhThu(Tra_cuu);
+       var soLuong = tinhSoLuong(Tra_cuu);
+       //Xuất
+       CUA_SO_KET_QUA.innerHTML=`<div class='alert alert-info'>
+                           Tổng doanh thu ngày ${Tra_cuu} là:<b style='color:red'>${doanhThu.toLocaleString("vi")} vnd</b> <br />
+                           Tổng số lượng bán ngày ${Tra_cuu} là:<b style='color:red'>${soLuong} cái</b></div>`;
+
+
+}
+}
+//*******************      Tính doanh thu của từng nhóm Tivi      **********************
+var tra_Nhom = document.createElement('input');
+Tra_cuu_theo_nhom.appendChild(tra_Nhom);
+tra_Nhom.onkeydown=()=>{
+    if(event.keyCode==13)
+    {   
+        //Nhập
+        var Tra_cuu = tra_Nhom.value.trim();
+        //Xử lí
+        var soluong=tinhSoLuongTonVaDoanhThu(Tra_cuu);
+        //Xuất
+        CUA_SO_KET_QUA.innerHTML=`<div class='alert alert-info'>
+            Tổng doanh thu ngày ${Tra_cuu} là:<b style='color:red'>${soluong} cái</b> <br /></div>`;
+        //CUA_SO_KET_QUA.appendChild(doanhThu);
+    }
+}
+//******************      Tra cứu mặt hàng    **********************
+ document.body.onload =() => {
+var Th_Chuoi_Tra_cuu=document.createElement("input")  
+Th_Chuc_nang_Tra_cuu.appendChild(Th_Chuoi_Tra_cuu)           
+Th_Chuoi_Tra_cuu.onkeydown=()=>{
+     if (event.keyCode==13){
+       // Nhập
+       var Chuoi_Tra_cuu=Th_Chuoi_Tra_cuu.value.trim()  
+       // Xử lý 
+       var Tra_cuu = Tra_cuu_Mat_hang(Chuoi_Tra_cuu)
+       var Danh_sach_Mat_hang_Xem=Hien_thi(Chuoi_Tra_cuu)   
+       // Xuất
+       CUA_SO_KET_QUA.innerHTML='';
+       CUA_SO_KET_QUA.appendChild(Danh_sach_Mat_hang_Xem)
+       CUA_SO_THONG_BAO.innerHTML=`<div class='alert alert-info'>
+                           Danh sách hiện có ${Tra_cuu.length} Mặt hàng </div>`
+                           
+     
+  }
+ }
+ }
+</script>      
